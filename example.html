@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Home | Find Your Perfect Place</title>
+    <style>
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue */
+            --accent-color: #e67e22;  /* Orange */
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER & NAVIGATION --- */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span { color: var(--accent-color); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--accent-color); }
+
+        .btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .btn:hover { background: var(--accent-color); }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            /* Using a placeholder image for background */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        /* Search Bar styling */
+        .search-box {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 800px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input, .search-box select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .search-box button {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover { background: var(--primary-color); }
+
+        /* --- 4. FEATURED PROPERTIES --- */
+        .section-padding { padding: 4rem 5%; }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p { color: var(--text-light); }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .agent-man{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+
+        }
+
+        .property-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: #ddd;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .card-details { padding: 1.5rem; }
+
+        .price {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .address {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .amenities {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* --- 5. FOOTER --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .footer-col { flex: 1; min-width: 200px; }
+        .footer-col h3 { margin-bottom: 1.5rem; color: var(--accent-color); }
+        .footer-col ul li { margin-bottom: 0.8rem; }
+        .footer-col ul li a:hover { color: var(--accent-color); text-decoration: underline; }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        button{
+            background-color: var(--shadow);
+            width: 100px;
+            height: 50px;
+            margin-right: 30px;
+        }
+    
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .search-box { flex-direction: column; }
+            .amenities { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Dream<span>Home</span></div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="#contact" class="btn">Contact Us</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Find Your Dream Home Today</h1>
+        <p>Browse thousands of properties in top locations and find the one that fits your life.</p>
+        
+        <div class="search-box">
+            <input type="text" placeholder="Enter keyword or Location...">
+            <select>
+                <option value="">Property Type</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="villa">Villa</option>
+            </select>
+            <select>
+                <option value="">Price Range</option>
+                <option value="low">$100k - $300k</option>
+                <option value="mid">$300k - $600k</option>
+                <option value="high">$600k+</option>
+            </select>
+            <button>Search</button>
+        </div>
+    </section>
+
+    <section id="properties" class="section-padding">
+        <div class="section-title">
+            <h2>Featured Properties</h2>
+            <p>Handpicked selections just for you.</p>
+        </div>
+
+        <div class="property-grid">
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">For Sale</span>
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Modern House">
+                </div>
+                <div class="card-details">
+                    <div class="price">$450,000</div>
+                    <h3>Modern Family Home</h3>
+                    <button onclick="window.location.href='details6.html'">Details</button>
+                    <p class="address">123 Maple Avenue, Springfield</p>
+                    <div class="amenities">
+                        <span>3 Beds</span>
+                        <span>2 Baths</span>
+                        <span>1,800 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">For sale</span>
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="Luxury Villa">
+                </div>
+                <div class="card-details">
+                    <div class="price">$2,500/mo</div>
+                    <h3>Luxury Villa with Pool</h3>
+                    <button onclick="window.location.href='details5.html'">Details</button>
+                    <p class="address">4-254, Nadikudi</p>
+                    <div class="amenities">
+                        <span>4 Beds</span>
+                        <span>3 Baths</span>
+                        <span>2,500 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">For Sale</span>
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="City Apartment">
+                </div>
+                <div class="card-details">
+                    <div class="price">$320,000</div>
+                    <h3>Downtown City Apartment</h3>
+                    <button onclick="window.location.href='details4.html'">Details</button>
+                    <p class="address">emt 452, Guntur</p>
+                    <div class="amenities">
+                        <span>2 Beds</span>
+                        <span>3 Bath</span>
+                        <span>1550 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="property-grid">
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">For Sale</span>
+                    <img src="https://images.unsplash.com/photo-1598228723793-52759bba239c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="Modern House">
+                </div>
+                <div class="card-details">
+                    <div class="price">$450,000</div>
+                    <h3>Gest House</h3>
+                    <button onclick="window.location.href='details3.html'">Details</button>
+                    <p class="address">ews 299 KPHB,Hydarabad</p>
+                    <div class="amenities">
+                        <span>3 Beds</span>
+                        <span>5 Baths</span>
+                        <span>1,800 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">For Rent</span>
+                    <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdXNlfGVufDB8fDB8fHww" alt="Luxury Villa">
+                </div>
+                <div class="card-details">
+                    <div class="price">$2,500/mo</div>
+                    <h3>Luxury Villa </h3>
+                    <button onclick="window.location.href='details2.html'">Details</button>
+                    <p class="address">Emt 452,vizag</p>
+                    <div class="amenities">
+                        <span>3 Beds</span>
+                        <span>3 Baths</span>
+                        <span>2,500 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="card-image">
+                    <span class="tag">for sale</span>
+                    <img src="https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGhvdXNlfGVufDB8fDB8fHww" alt="City Apartment">
+                </div>
+                <div class="card-details">
+                    <div class="price">$320,000</div>
+                    <h3>sri nilayamt</h3>
+                    <button onclick="window.location.href='details1.html'">Details</button>
+                    <p class="address">786, vijayawada</p>
+                    <div class="amenities">
+                        <span>3 Beds</span>
+                        <span>4 Bath</span>
+                        <span>1050 Sq Ft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="agents" class="section-padding" background-color: var(--light-bg);>
+        <div class="section-title">
+            <h2>Meet Our Agents</h2>
+            <p>Our experienced agents are here to help you find your perfect home.</p>
+        </div>
+    <div class="agent-man" id="nagur">
+        <div class="property-card">
+                <div class="card-image">
+        <h1><center><u>Agent Details</u></center></h1>
+        <h2><center>TNB constructions</center></h2>
+        <h2><center>Contact No: 9849275133</center></h2>
+                <h2><center>Location: Hyderabad</center></h2>
+                    <h2><center>Experience: 25 years</center></h2>
+          </div>
+        </div>
+    </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="section-title">
+            <h2>About Us</h2>
+            <p>At Dream Home, we are passionate about helping you find the perfect place to call home. With years of experience in the real estate industry, our team is dedicated to providing exceptional service and expert guidance throughout your home buying or renting journey.</p>
+        </div>
+
+    </section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Dream Home</h3>
+                <p>We help you find the best homes at the best prices. Trusted by thousands of happy customers.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#properties">Properties</a></li>
+                    <li><a href="#agents">Agents</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <section id="contact" class="section-padding">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>praveen RealEstate developers lvd</li>
+                    <li>contact@dreamhome.com</li>
+                    <li>(911) 123-4567</li>
+                </ul>
+                </section>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2027 DreamHome Real Estate. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
